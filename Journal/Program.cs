@@ -1,0 +1,113 @@
+﻿using System;
+
+
+class Program
+{
+    static void Main(string[] args)
+    {
+
+        Journal journal = new Journal();
+
+        PromptGenerator generator = new PromptGenerator();
+
+
+        while(true)
+        {
+
+            Console.WriteLine("Journal Menu");
+            Console.WriteLine("1. Write a new entry");
+            Console.WriteLine("2. Display journal");
+            Console.WriteLine("3. Save journal");
+            Console.WriteLine("4. Load journal");
+            Console.WriteLine("5. Quit");
+
+
+            Console.Write("Choose an option: ");
+
+            string choice = Console.ReadLine();
+
+
+
+            if(choice == "1")
+            {
+
+                string prompt = generator.GetRandomPrompt();
+
+                Console.WriteLine(prompt);
+
+                Console.Write("> ");
+
+                string response = Console.ReadLine();
+
+
+
+                Entry entry = new Entry();
+
+                entry._date = DateTime.Now.ToShortDateString();
+
+                entry._prompt = prompt;
+
+                entry._response = response;
+
+
+                journal.AddEntry(entry);
+
+            }
+
+
+            else if(choice == "2")
+            {
+
+                journal.DisplayAll();
+
+            }
+
+
+            else if(choice == "3")
+            {
+
+                Console.Write("Filename: ");
+
+                string filename = Console.ReadLine();
+
+
+                journal.SaveToFile(filename);
+
+                Console.WriteLine("Saved.");
+
+            }
+
+
+            else if(choice == "4")
+            {
+
+                Console.Write("Filename: ");
+
+                string filename = Console.ReadLine();
+
+
+                journal.LoadFromFile(filename);
+
+                Console.WriteLine("Loaded.");
+
+            }
+
+
+            else if(choice == "5")
+            {
+                break;
+            }
+
+
+            else
+            {
+                Console.WriteLine("Invalid option.");
+            }
+
+
+            Console.WriteLine();
+
+        }
+
+    }
+}
